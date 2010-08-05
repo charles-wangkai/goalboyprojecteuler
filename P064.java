@@ -1,4 +1,3 @@
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class P064 {
@@ -10,28 +9,23 @@ public class P064 {
 				continue;
 			}
 			ArrayList<Fraction> fractions = new ArrayList<Fraction>();
-			BigInteger up1 = BigInteger.ONE;
-			BigInteger up2 = new BigInteger(-numberInt + "");
-			BigInteger down = BigInteger.ONE;
+			int up1 = 1;
+			int up2 = -numberInt;
+			int down = 1;
 			fractions.add(new Fraction(up1, up2, down));
 			while (true) {
-				BigInteger nextUp1 = up1.multiply(down);
-				BigInteger nextUp2 = up2.negate().multiply(down);
-				BigInteger nextDown = up1.multiply(up1)
-						.multiply(new BigInteger(i + ""))
-						.subtract(up2.multiply(up2));
-				BigInteger common = nextUp1.gcd(nextUp2).gcd(nextDown);
-				nextUp1 = nextUp1.divide(common);
-				nextUp2 = nextUp2.divide(common);
-				nextDown = nextDown.divide(common);
+				int nextUp1 = up1 * down;
+				int nextUp2 = -up2 * down;
+				int nextDown = up1 * up1 * i - up2 * up2;
+				int common = GCD(GCD(Math.abs(nextUp1), Math.abs(nextUp2)),
+						Math.abs(nextDown));
+				nextUp1 /= common;
+				nextUp2 /= common;
+				nextDown /= common;
 				int intPart = 0;
-				while (nextUp1
-						.multiply(nextUp1)
-						.multiply(new BigInteger(i + ""))
-						.compareTo(
-								nextDown.subtract(nextUp2).multiply(
-										nextDown.subtract(nextUp2))) >= 0) {
-					nextUp2 = nextUp2.subtract(nextDown);
+				while (nextUp1 * nextUp1 * i >= (nextDown - nextUp2)
+						* (nextDown - nextUp2)) {
+					nextUp2 = nextUp2 - nextDown;
 					intPart++;
 				}
 				up1 = nextUp1;
@@ -51,14 +45,29 @@ public class P064 {
 		}
 		System.out.println(count);
 	}
+
+	static int GCD(int a, int b) {
+		if (a < b) {
+			return GCD(b, a);
+		}
+		if (b == 0) {
+			return 1;
+		}
+		while (a % b != 0) {
+			int c = a % b;
+			a = b;
+			b = c;
+		}
+		return b;
+	}
 }
 
 class Fraction {
-	BigInteger up1;
-	BigInteger up2;
-	BigInteger down;
+	int up1;
+	int up2;
+	int down;
 
-	Fraction(BigInteger theUp1, BigInteger theUp2, BigInteger theDown) {
+	Fraction(int theUp1, int theUp2, int theDown) {
 		this.up1 = theUp1;
 		this.up2 = theUp2;
 		this.down = theDown;
@@ -66,8 +75,7 @@ class Fraction {
 
 	public boolean equals(Object obj) {
 		Fraction another = (Fraction) obj;
-		return this.up1.compareTo(another.up1) == 0
-				&& this.up2.compareTo(another.up2) == 0
-				&& this.down.compareTo(another.down) == 0;
+		return this.up1 == another.up1 && this.up2 == another.up2
+				&& this.down == another.down;
 	}
 }
