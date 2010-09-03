@@ -5,8 +5,12 @@ public class P108 {
 		int TARGET = 1000;
 		for (int i = TARGET + 1;; i++) {
 			ArrayList<Factor> primeFactors = findPrimeFactors(i);
-			doubleExponent(primeFactors);
-			if (solutionNum(primeFactors, 0, 1, i) > TARGET) {
+			int solutionNum = 1;
+			for (int j = 0; j < primeFactors.size(); j++) {
+				solutionNum *= (2 * primeFactors.get(j).exponent + 1);
+			}
+			solutionNum = (solutionNum + 1) / 2;
+			if (solutionNum > TARGET) {
 				System.out.println(i);
 				break;
 			}
@@ -38,29 +42,6 @@ public class P108 {
 			}
 		}
 		return true;
-	}
-
-	static void doubleExponent(ArrayList<Factor> primeFactors) {
-		for (int i = 0; i < primeFactors.size(); i++) {
-			primeFactors.get(i).exponent *= 2;
-		}
-	}
-
-	static int solutionNum(ArrayList<Factor> primeFactors, int index,
-			int current, int limit) {
-		if (index == primeFactors.size()) {
-			return 1;
-		} else {
-			int temp = 1;
-			int sum = 0;
-			for (int i = 0; i <= primeFactors.get(index).exponent
-					&& current * temp <= limit; i++) {
-				sum += solutionNum(primeFactors, index + 1, current * temp,
-						limit);
-				temp *= primeFactors.get(index).factor;
-			}
-			return sum;
-		}
 	}
 }
 
