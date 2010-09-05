@@ -1,12 +1,13 @@
 import java.math.BigInteger;
 
-public class P108 {
-	static final int LIMIT = 1000;
+public class P110 {
+	static final int LIMIT = 4000000;
 	static BigInteger answer;
 	static BigInteger answerSquare;
 
 	public static void main(String args[]) {
-		int primes[] = new int[] { 2, 3, 5, 7, 11, 13, 17 };
+		int primes[] = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37,
+				41, 43, 47 };
 		answer = BigInteger.ONE;
 		answerSquare = BigInteger.ONE;
 		for (int i = 0; i < primes.length; i++) {
