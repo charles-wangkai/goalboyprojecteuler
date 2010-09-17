@@ -6,8 +6,6 @@ public class P111 {
 			for (int j = N - 1; j >= 1; j--) {
 				long S = search(N, i, j, 0, 0);
 				if (S > 0) {
-					System.out
-							.println("d = " + i + ", M = " + j + ", S = " + S);
 					sum += S;
 					break;
 				}
