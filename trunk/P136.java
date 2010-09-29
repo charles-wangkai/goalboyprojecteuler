@@ -1,3 +1,5 @@
+// VM arguments: -Xms32m -Xmx800m
+
 public class P136 {
 	public static void main(String args[]) {
 		final int LIMIT = 50000000;
