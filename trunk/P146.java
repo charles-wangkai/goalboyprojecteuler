@@ -1,3 +1,5 @@
+// VM arguments: -Xms32m -Xmx800m
+
 import java.util.ArrayList;
 
 public class P146 {
