@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 
 public class P266 {
 	public static void main(String args[]) {
@@ -57,18 +56,14 @@ public class P266 {
 	static ArrayList<Integer> sievePrimes(int limit) {
 		boolean primes[] = new boolean[limit];
 		Arrays.fill(primes, true);
-		LinkedList<Integer> stack = new LinkedList<Integer>();
+		ArrayList<Integer> result = new ArrayList<Integer>();
 		for (int i = 2; i < primes.length; i++) {
 			if (primes[i]) {
-				stack.push(i);
+				result.add(i);
 				for (int j = i + i; j < primes.length; j += i) {
 					primes[j] = false;
 				}
 			}
-		}
-		ArrayList<Integer> result = new ArrayList<Integer>();
-		while (!stack.isEmpty()) {
-			result.add(stack.pop());
 		}
 		return result;
 	}
