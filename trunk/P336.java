@@ -1,3 +1,5 @@
+// VM arguments: -Xms32m -Xmx1400m
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
